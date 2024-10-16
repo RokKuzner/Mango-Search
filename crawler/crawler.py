@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
 from bs4 import BeautifulSoup
 
 import re
+import requests
 import time
 
 websites_to_crawl = ["https://www.selenium.dev/"] # WARNING: ONLY FOR DEVELOPMENT WITHOUT A DATABASE
@@ -13,6 +15,8 @@ class MangoCrawler():
     def __init__(self) -> None:
         # Global variables
         self.url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)?(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{1,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z0-9\-]{2,63})(?:(?:\:)(?P<port>\d{4}))?(?P<after>\/.*)?$")
+        self.sitemap_in_robots_regex_pattern = re.compile(r"(?:sitemap)(?::)(?: )(?P<sitemap_url>(?:https?:\/\/)(?:www\.)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{1,251}[a-zA-Z0-9])?)(?:\.[a-zA-Z0-9\-]{2,63})(?:(?:\:)(\d{4}))?(?:\/.*))", flags=re.M|re.I)
+        self.sitemap_locations = ["/sitemap.xml",  "/sitemap-index.xml", "/sitemap/sitemap.xml", "/sitemapindex.xml", "/sitemap/index.xml", "/sitemap1.xml"]
 
         # Set up the options for chrome webdriver
         chrome_options = Options()
@@ -79,15 +83,50 @@ class MangoCrawler():
         page_title = self.driver.title
 
         print("Title:", page_title)
-
         print("Content:", main_content)
 
+    def find_sitemap(self, website_base_url:str) -> str|None:
+        if website_base_url[-1] == "/":
+            website_base_url = website_base_url[:-1]
+
+        #Get sitemap
+        sitemap_location = ""
+        sitemap_found = False
+
+        #In robots.txt
+        self.driver.get(website_base_url+"/robots.txt")
+        try:
+            robots_text = self.driver.find_element(By.CSS_SELECTOR, "body").text
+            sitemap_match = re.search(self.sitemap_in_robots_regex_pattern, robots_text)
+    
+            if sitemap_match:
+                sitemap_location = sitemap_match.group("sitemap_url")
+                sitemap_found = True
+        except Exception as e:
+            pass
+
+        #On one of the paths
+        for sitemap_possible_location in self.sitemap_locations:
+            if sitemap_found:
+                break
+
+            possible_sitemap_url = website_base_url + sitemap_possible_location
+
+            response = requests.get(possible_sitemap_url)
+            if response.status_code == 200:
+                sitemap_location = possible_sitemap_url
+                sitemap_found = True
+
+        return sitemap_location if sitemap_location != "" else None
+
     def crawl_website(self, website_base_url:str):
+        #Get the sitemap
+        sitemap_url = self.find_sitemap(website_base_url)
+        print(sitemap_url)
+
         # Extract page domain
         domain_match = re.match(self.url_regex_pattern, website_base_url)
         page_domain = str(domain_match.group("domain_name")) + str(domain_match.group("top_level_domain"))
-
-        print("Domain:", page_domain)
 
     def run(self):
         while True:
