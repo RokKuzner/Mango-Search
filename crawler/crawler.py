@@ -97,4 +97,6 @@ class MangoCrawler():
                 time.sleep(1)
                 continue
 
+            self.crawl_website(website_to_crawl_url)
+
 MangoCrawler().run()
