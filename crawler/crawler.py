@@ -90,12 +90,11 @@ class MangoCrawler():
         print("Domain:", page_domain)
 
     def run(self):
-        website_to_crawl_url = self.get_next_website_to_crawl()
-
         while True:
+            website_to_crawl_url = self.get_next_website_to_crawl()
+
             if website_to_crawl_url == None:
                 time.sleep(1)
-                website_to_crawl_url = self.get_next_website_to_crawl()
                 continue
 
 MangoCrawler().run()
