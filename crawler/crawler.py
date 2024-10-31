@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 from bs4 import BeautifulSoup
+from keybert import KeyBERT
 
 import re
 import requests
@@ -66,7 +67,7 @@ class MangoCrawler():
 
         return content
     
-    def crawl_webpage(self, webpage_url:str) -> None:
+    def crawl_webpage(self, webpage_url:str) -> dict:
         self.driver.get(webpage_url)
 
         # Get the page source and parse it with BeautifulSoup
@@ -79,11 +80,15 @@ class MangoCrawler():
         # Extract main content
         main_content = self.extract_main_content(soup)
 
+        #Extract keywords
+        kw_model = KeyBERT()
+        keywords = kw_model.extract_keywords(main_content, keyphrase_ngram_range=(1, 2), stop_words=None, top_n=10)
+        keywords_list = [keyword for keyword, match in keywords]
+
         # Get the page title
         page_title = self.driver.title
 
-        print("Title:", page_title)
-        print("Content:", main_content)
+        return {"title":page_title, "main_content":main_content, "keywords":keywords_list}
 
     def find_sitemap(self, website_base_url:str) -> str|None:
         if website_base_url[-1] == "/":
