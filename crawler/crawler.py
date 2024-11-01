@@ -15,7 +15,7 @@ websites_to_crawl = ["https://www.selenium.dev/"] # WARNING: ONLY FOR DEVELOPMEN
 class MangoCrawler():
     def __init__(self) -> None:
         # Global variables
-        self.url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)?(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?::(?P<port>\d{1,5}))?(?P<subpages>\/[^\?#]*)?(?P<arguments>\?[^#]*)(?P<fragment>#.*)?$")
+        self.url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)?(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?::(?P<port>\d{1,5}))?(?P<subpages>\/[^\?#]*)?(?P<arguments>\?[^#]*)?(?P<fragment>#.*)?$")
         self.sitemap_in_robots_regex_pattern = re.compile(r"(?:sitemap)(?::)(?: )(?P<sitemap_url>(?:https?:\/\/)(?:www\.)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{1,251}[a-zA-Z0-9])?)(?:\.[a-zA-Z0-9\-]{2,63})(?:(?:\:)(\d{4}))?(?:\/.*))", flags=re.M|re.I)
         self.sitemap_locations = ["/sitemap.xml",  "/sitemap-index.xml", "/sitemap/sitemap.xml", "/sitemapindex.xml", "/sitemap/index.xml", "/sitemap1.xml"]
 
