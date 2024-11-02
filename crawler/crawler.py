@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from keybert import KeyBERT
@@ -123,6 +124,47 @@ class MangoCrawler():
                 sitemap_found = True
 
         return sitemap_location if sitemap_location != "" else None
+    
+    def find_subpages(self, website_base_url:str) -> list[str]:
+        to_explore = [website_base_url]
+        explored = set()
+
+        subpages = []
+
+        while to_explore:
+            print(f"Page n: {len(subpages)}")
+
+            webpage_url = to_explore.pop(0)
+            if webpage_url in explored:
+                continue
+
+            try:
+                self.driver.get(webpage_url)
+                subpages.append(webpage_url)
+                explored.add(webpage_url)
+            except:
+                explored.add(webpage_url)
+                continue
+
+            #Get all links in this webpage
+            anchor_elements = self.driver.find_elements(By.CSS_SELECTOR, "a")
+            for anchor_element in anchor_elements:
+                try:
+                    link = anchor_element.get_attribute("href")
+                except:
+                    continue
+                if not link or not link.startswith(website_base_url):continue
+
+                #Clean the link
+                parsed_link = urlparse(link)
+                link = urlunparse((parsed_link.scheme, parsed_link.netloc, parsed_link.path, "", "", ""))
+                if not link.endswith("/"): link += "/"
+
+                #Add the link to subpages
+                if link not in explored:
+                    to_explore.append(link)
+
+        return subpages
 
     def crawl_website(self, website_base_url:str):
         #Get the sitemap
