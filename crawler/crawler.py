@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from urllib.parse import urlparse, urlunparse
 import selenium.common.exceptions
 
 from fake_useragent import UserAgent
@@ -15,7 +14,7 @@ import re
 import requests
 import time
 
-websites_to_crawl = ["https://www.selenium.dev/"] # WARNING: ONLY FOR DEVELOPMENT WITHOUT A DATABASE
+websites_to_crawl = ["https://regex101.com/", "https://chatgpt.com/", "https://www.selenium.dev/", "https://www.google.com", "https://casoris.si/", "https://www.easistent.com/stran/", "https://github.com/"] # WARNING: ONLY FOR DEVELOPMENT WITHOUT A DATABASE
 
 class MangoCrawler():
     def __init__(self) -> None:
@@ -218,7 +217,7 @@ class MangoCrawler():
         keywords = [keyword for keyword in non_duplicate_keywords]
 
         #TODO: Add keywords to the database
-        print(keywords)
+        print(f"{website_base_url}: {keywords}")
 
     def run(self):
         while True:
