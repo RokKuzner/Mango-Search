@@ -167,10 +167,6 @@ class MangoCrawler():
         return subpages
 
     def crawl_website(self, website_base_url:str):
-        #Get the sitemap
-        sitemap_url = self.find_sitemap(website_base_url)
-        print(sitemap_url)
-
         # Extract page domain
         domain_match = re.match(self.url_regex_pattern, website_base_url)
         page_domain = str(domain_match.group("domain_name")) + str(domain_match.group("top_level_domain"))
