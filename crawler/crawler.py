@@ -168,8 +168,14 @@ class MangoCrawler():
 
     def crawl_website(self, website_base_url:str):
         # Extract page domain
-        domain_match = re.match(self.url_regex_pattern, website_base_url)
-        page_domain = str(domain_match.group("domain_name")) + str(domain_match.group("top_level_domain"))
+        url_match = re.match(self.url_regex_pattern, website_base_url)
+        website_domain_name = url_match.group("domain_name")
+
+        #Extract keypharse from the domain name
+        domain_name_parts = [part for part in re.split(r"[\.\-]", website_domain_name) if part] #Extract all words form the domain name that are separated by "." or "-" and strip the list of any empty strings
+        domain_name_keyphrase = " ".join(domain_name_parts)
+
+        print(domain_name_keyphrase)
 
     def run(self):
         while True:
