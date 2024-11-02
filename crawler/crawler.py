@@ -5,6 +5,9 @@ from selenium.webdriver.common.by import By
 from urllib.parse import urlparse, urlunparse
 import selenium.common.exceptions
 
+from fake_useragent import UserAgent
+from urllib.parse import urlparse, urlunparse
+
 from bs4 import BeautifulSoup
 from keybert import KeyBERT
 
@@ -22,13 +25,19 @@ class MangoCrawler():
         self.sitemap_locations = ["/sitemap.xml",  "/sitemap-index.xml", "/sitemap/sitemap.xml", "/sitemapindex.xml", "/sitemap/index.xml", "/sitemap1.xml"]
 
         # Set up the options for chrome webdriver
+        self.user_agent = UserAgent()
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument(f"user-agent={self.user_agent.random}")
 
         # Create the driver
         self.driver = webdriver.Chrome(options=chrome_options)
+
+        # Initialize request counter
+        self.request_counter = 0
+        self.requests_per_user_agent = 5  # Rotate user agent every 5 requests
   
     def get_next_website_to_crawl(self) -> str|None:
         #TODO: Replace thsi with code that interacts with the DB
@@ -73,7 +82,13 @@ class MangoCrawler():
         return content
     
     def crawl_webpage(self, webpage_url:str) -> dict:
+        # Rotate user-agent if the counter reaches the limit
+        if self.request_counter >= self.requests_per_user_agent:
+            self.driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": self.user_agent.random})
+            self.request_counter = 0  # Reset counter
+
         self.driver.get(webpage_url)
+        self.request_counter += 1  # Increment counter
 
         # Get the page source and parse it with BeautifulSoup
         page_source = self.driver.page_source
