@@ -31,9 +31,12 @@ class MangoCrawler():
         self.driver = webdriver.Chrome(options=chrome_options)
   
     def get_next_website_to_crawl(self) -> str|None:
+        #TODO: Replace thsi with code that interacts with the DB
         if len(websites_to_crawl) == 0:
             return None
         return websites_to_crawl.pop(0)
+    
+    #TODO: Create a function that adds indexed website to the DB
     
     def filter_out_non_content(self, soup: BeautifulSoup) -> None:
         # Remove <header>, <footer>, <nav>, <aside> (common non-content sections)
