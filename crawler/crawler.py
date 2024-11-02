@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from urllib.parse import urlparse, urlunparse
+import selenium.common.exceptions
 
 from bs4 import BeautifulSoup
 from keybert import KeyBERT
