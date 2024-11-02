@@ -185,7 +185,22 @@ class MangoCrawler():
         domain_name_parts = [part for part in re.split(r"[\.\-]", website_domain_name) if part] #Extract all words form the domain name that are separated by "." or "-" and strip the list of any empty strings
         domain_name_keyphrase = " ".join(domain_name_parts)
 
-        print(domain_name_keyphrase)
+        #Crawl the index page
+        index_webpage_data = self.crawl_webpage(website_base_url)
+
+        keywords = [ domain_name_keyphrase, index_webpage_data["title"] ] + index_webpage_data["content_keywords"] + index_webpage_data["meta_keywords"]
+        keywords = [keyword.lower() for keyword in keywords] #Lowercase all the keywords
+
+        #Remove all duplicate and empty keywords
+        non_duplicate_keywords = set()
+        for keyword in keywords:
+            if keyword and keyword not in non_duplicate_keywords:
+                non_duplicate_keywords.add(keyword)
+
+        keywords = [keyword for keyword in non_duplicate_keywords]
+
+        #TODO: Add keywords to the database
+        print(keywords)
 
     def run(self):
         while True:
