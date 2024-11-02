@@ -83,13 +83,21 @@ class MangoCrawler():
 
         #Extract content keywords
         kw_model = KeyBERT()
-        keywords = kw_model.extract_keywords(main_content, keyphrase_ngram_range=(1, 2), stop_words=None, top_n=10)
-        keywords_list = [keyword for keyword, match in keywords]
+        content_keywords = kw_model.extract_keywords(main_content, keyphrase_ngram_range=(1, 2), stop_words=None, top_n=10)
+        content_keywords_list = [keyword for keyword, match in content_keywords]
+
+        #Extract keywords form meta
+        try:
+            meta_tag = self.driver.find_element(By.CSS_SELECTOR, 'meta[name="keywords"]')
+            meta_keywords = meta_tag.get_attribute("content")
+            meta_keywords = [keyword for keyword in re.split(r"\s*\,\s*", meta_keywords) if keyword] #Extract all words form the meta tag that are separated by (","+any amount of spaces) and strip the list of any empty strings
+        except selenium.common.exceptions.NoSuchElementException:
+            meta_keywords = []
 
         # Get the page title
         page_title = self.driver.title
 
-        return {"title":page_title, "main_content":main_content, "keywords":keywords_list}
+        return {"title":page_title, "main_content":main_content, "content_keywords":content_keywords_list, "meta_keywords":meta_keywords}
 
     def find_sitemap(self, website_base_url:str) -> str|None:
         if website_base_url[-1] == "/":
