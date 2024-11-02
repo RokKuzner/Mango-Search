@@ -81,7 +81,7 @@ class MangoCrawler():
         # Extract main content
         main_content = self.extract_main_content(soup)
 
-        #Extract keywords
+        #Extract content keywords
         kw_model = KeyBERT()
         keywords = kw_model.extract_keywords(main_content, keyphrase_ngram_range=(1, 2), stop_words=None, top_n=10)
         keywords_list = [keyword for keyword, match in keywords]
