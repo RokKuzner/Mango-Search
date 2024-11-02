@@ -1,15 +1,12 @@
 Mango Crawler crawling procedure:
 
     1. Get website URL from database
-    2. Get the sitemap (search on /robots.txt (to get the sitemap url), /sitemap, /sitemap.xml, /sitemap-index.xml /sitemap/sitemap.xml, /sitemapindex.xml, /sitemap/index.xml, /sitemap1.xml)
-    3. Crawl (extract keywords) the index page + pages in the sitemap
-        Index page:
-            a. Same as in "Other pages" + keywords in domain name
-        Other pages:
-            a. Filter out non-content
-            b. Extract keywords in the main content:
-                1. Semantic tags: <article>, <main>, <section>
-                2. <div> tags with content-heavy class names or IDs
-                3. <div> tags with much text
-                4. Title
-    4. Save each webpage with it's keywords to the database
+    2. Crawl (extract keywords from) the index page
+        a. Filter out non-content
+        b. Extract keywords in the main content:
+            1. Semantic tags: <article>, <main>, <section>
+            2. <div> tags with content-heavy class names or IDs
+            3. <div> tags with much text
+            4. Title
+            5. Url
+    3. Save each webpage with it's keywords to the database
