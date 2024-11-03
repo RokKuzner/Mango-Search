@@ -1,0 +1,29 @@
+Tables in the database:
+    - keywords
+    - webpages_by_keyword
+    - to_index
+    - latest_website_index_time
+
+keywords:
+    - "keyword": text, primary key
+
+webpages_by_keyword:
+    - "keyword": text
+    - "url": text
+
+    -PRIMARY KEY (keyword, url)
+
+to_index:
+    - "timestamp": decimal, primary key
+    - "url": text, unique, not null
+
+currently_indexing:
+    - "indexing_start_timestamp": decimal
+    - "url": text, unique
+    - "requested_to_index_timestamp": decimal
+
+    - PRIMARY KEY (indexing_start_timestamp, url)
+
+latest_website_index_time:
+    - "url": text, unique, primary key
+    - "timestamp": decimal, not null

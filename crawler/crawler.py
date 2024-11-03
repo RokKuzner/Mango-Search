@@ -38,14 +38,6 @@ class MangoCrawler():
         # Initialize request counter
         self.request_counter = 0
         self.requests_per_user_agent = 5  # Rotate user agent every 5 requests
-  
-    def get_next_website_to_crawl(self) -> str|None:
-        #TODO: Replace thsi with code that interacts with the DB
-        if len(websites_to_crawl) == 0:
-            return None
-        return websites_to_crawl.pop(0)
-    
-    #TODO: Create a function that adds indexed website to the DB
     
     def filter_out_non_content(self, soup: BeautifulSoup) -> None:
         # Remove <header>, <footer>, <nav>, <aside> (common non-content sections)
@@ -218,16 +210,3 @@ class MangoCrawler():
         keywords = [keyword for keyword in non_duplicate_keywords]
 
         #TODO: Add keywords to the database
-        print(f"{website_base_url}: {keywords}")
-
-    def run(self):
-        while True:
-            website_to_crawl_url = self.get_next_website_to_crawl()
-
-            if website_to_crawl_url == None:
-                time.sleep(1)
-                continue
-
-            self.crawl_website(website_to_crawl_url)
-
-MangoCrawler().run()
