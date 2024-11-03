@@ -110,7 +110,7 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
         add_keyword_to_index_if_not_exists(keyword)
         cur.execute("INSERT INTO webpages_by_keyword (keyword, url) VALUES (%s, %s)", (keyword, url))
 
-    cur.commit()
+    conn.commit()
     cur.close()
     conn.close()
 
