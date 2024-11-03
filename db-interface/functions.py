@@ -187,3 +187,15 @@ def get_website_keywords(url:str) -> list[str]:
     conn.close()
 
     return [row[0] for row in result]
+
+def get_websites_by_keyword(keyword:str) -> list[str]:
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT url FROM webpages_by_keyword WHERE keyword = %s", (keyword,))
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return [row[0] for row in result]
