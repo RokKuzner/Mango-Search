@@ -26,6 +26,21 @@ def start_next_website_index_endpoint():
 
     return jsonify({"url": url})
 
+@app.route("/add_indexed_website", methods=["POST"])
+def add_indexed_website_endpoint():
+    data = request.json
+    if "url" not in data or "keywords" not in data:
+        return jsonify({"status": "error", "message": "Missing 'url' or 'keywords' key in request data"}), 400
+    url = data["url"]
+    keywords = data["keywords"]
+
+    try:
+        db_functions.add_indexed_website(url, keywords)
+    except Exception as e:
+        return jsonify({"status": "error"})
+
+    return jsonify({"status": "success"})
+
 if __name__ == "__main__":
     #Create db tables if they do not exist
     db_functions.create_tables_if_not_exist()
