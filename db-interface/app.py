@@ -4,7 +4,7 @@ from functions import *
 app = Flask(__name__)
 
 @app.route("/request_website_index", methods=["POST"])
-def get_data():
+def request_website_index_endpoint():
     data = request.json
     if "url" not in data:
         return jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400
