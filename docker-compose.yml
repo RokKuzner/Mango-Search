@@ -18,6 +18,11 @@ services:
     env_file:
       - .env
 
+  website-explorer:
+    build: ./website-explorer
+    depends_on:
+      - db-interface
+
   crawler:
     build: ./crawler
     depends_on:
