@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import functions as db_functions
 
 app = Flask(__name__)
@@ -7,39 +7,39 @@ app = Flask(__name__)
 def request_website_index_endpoint():
     data = request.json
     if "url" not in data:
-        return jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400
+        return make_response(jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400)
     url = data["url"]
 
     try:
         db_functions.request_website_index(url)
     except Exception as e:
-        return jsonify({"status": "error"})
+        return make_response(jsonify({"status": "error"}), 500)
 
-    return jsonify({"status": "success"})
+    return make_response(jsonify({"status": "success"}), 200)
 
 @app.route("/start_next_website_index", methods=["GET"])
 def start_next_website_index_endpoint():
     try:
         url = db_functions.start_next_website_index()
     except Exception as e:
-        return jsonify({"status": "error"})
+        return make_response(jsonify({"status": "error"}), 500)
 
-    return jsonify({"url": url})
+    return make_response(jsonify({"url": url}), 200)
 
 @app.route("/add_indexed_website", methods=["POST"])
 def add_indexed_website_endpoint():
     data = request.json
     if "url" not in data or "keywords" not in data:
-        return jsonify({"status": "error", "message": "Missing 'url' or 'keywords' key in request data"}), 400
+        return make_response(jsonify({"status": "error", "message": "Missing 'url' or 'keywords' key in request data"}), 400)
     url = data["url"]
     keywords = data["keywords"]
 
     try:
         db_functions.add_indexed_website(url, keywords)
     except Exception as e:
-        return jsonify({"status": "error"})
+        return make_response(jsonify({"status": "error"}), 500)
 
-    return jsonify({"status": "success"})
+    return make_response(jsonify({"status": "success"}), 200)
 
 if __name__ == "__main__":
     #Create db tables if they do not exist
