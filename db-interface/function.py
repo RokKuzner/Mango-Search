@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 import psycopg2
 import os
+from typing import Optional
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -120,3 +121,38 @@ def request_website_index(url:str) -> None:
     conn.commit()
     cur.close()
     conn.close()
+
+def start_next_website_index() -> Optional[str]:
+    """
+    Starts the indexing process for the next website in the queue.
+
+    This function selects the oldest website from the 'to_index' table,
+    removes it from the table, and adds it to the 'currently_indexing' table
+    with the current timestamp. If no websites are in the queue, it returns None.
+
+    Returns:
+        str | None: The URL of the website to be indexed, or None if no websites are in the queue.
+    """
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM to_index ORDER BY timestamp ASC LIMIT 1")
+    result = cur.fetchone()
+
+    if result is None:
+        cur.close()
+        conn.close()
+        return None
+    
+    timestamp, url = result
+
+    #Remove website from to_index table
+    cur.execute("DELETE FROM to_index WHERE url = %s", (url,))
+    #Add website to currently_indexing table
+    cur.execute("INSERT INTO currently_indexing (indexing_start_timestamp, url, requested_to_index_timestamp) VALUES (%s, %s, %s)", (get_timestamp(), url, timestamp))
+    
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return url
