@@ -8,8 +8,10 @@ keywords:
     - "keyword": text, primary key
 
 webpages_by_keyword:
-    - "keyword": text, primary key
+    - "keyword": text
     - "url": text
+
+    -PRIMARY KEY (keyword, url)
 
 to_index:
     - "timestamp": decimal, primary key

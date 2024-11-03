@@ -24,8 +24,9 @@ def create_tables_if_not_exist() -> None:
     """)
     cur.execute("""
         CREATE TABLE IF NOT EXISTS webpages_by_keyword (
-                keyword TEXT PRIMARY KEY,
-                url TEXT
+                keyword TEXT,
+                url TEXT,
+                PRIMARY KEY (keyword, url)
         )
     """)
     cur.execute("""
