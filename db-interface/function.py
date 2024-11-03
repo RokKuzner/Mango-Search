@@ -97,6 +97,9 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
     conn = get_db_connection()
     cur = conn.cursor()
 
+    #Remove website from currently_indexing table
+    cur.execute("DLETE FROM currently_indexing WHERE url = %s", (url,))
+
     if is_website_indexed(url):
         cur.execute("UPDATE latest_website_index_time SET timestamp = %s WHERE url = %s", (get_timestamp(), url))
         cur.execute("DELETE FROM webpages_by_keyword WHERE url = %s", (url,))
@@ -106,6 +109,10 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
     for keyword in keywords:
         add_keyword_to_index_if_not_exists(keyword)
         cur.execute("INSERT INTO webpages_by_keyword (keyword, url) VALUES (%s, %s)", (keyword, url))
+
+    cur.commit()
+    cur.close()
+    conn.close()
 
 def request_website_index(url:str) -> None:
     conn = get_db_connection()
