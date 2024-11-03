@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from functions import *
+import functions as db_functions
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def request_website_index_endpoint():
     url = data["url"]
 
     try:
-        request_website_index(url)
+        db_functions.request_website_index(url)
     except Exception as e:
         return jsonify({"status": "error"})
 
@@ -19,6 +19,6 @@ def request_website_index_endpoint():
 
 if __name__ == "__main__":
     #Create db tables if they do not exist
-    create_tables_if_not_exist()
+    db_functions.create_tables_if_not_exist()
 
     app.run(host='0.0.0.0', port=5000)
