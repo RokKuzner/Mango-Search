@@ -17,6 +17,15 @@ def request_website_index_endpoint():
 
     return jsonify({"status": "success"})
 
+@app.route("/start_next_website_index", methods=["GET"])
+def start_next_website_index_endpoint():
+    try:
+        url = db_functions.start_next_website_index()
+    except Exception as e:
+        return jsonify({"status": "error"})
+
+    return jsonify({"url": url})
+
 if __name__ == "__main__":
     #Create db tables if they do not exist
     db_functions.create_tables_if_not_exist()
