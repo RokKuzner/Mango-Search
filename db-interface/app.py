@@ -3,12 +3,21 @@ from functions import *
 
 app = Flask(__name__)
 
-@app.route('/data', methods=['GET'])
+@app.route("/request_website_index", methods=["POST"])
 def get_data():
-    data = [{"status": "success", "message": "THIS IS A TEST"}]
-    return jsonify(data)
+    data = request.json
+    if "url" not in data:
+        return jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400
+    url = data["url"]
 
-if __name__ == '__main__':
+    try:
+        request_website_index(url)
+    except Exception as e:
+        return jsonify({"status": "error"})
+
+    return jsonify({"status": "success"})
+
+if __name__ == "__main__":
     #Create db tables if they do not exist
     create_tables_if_not_exist()
 
