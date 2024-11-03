@@ -163,3 +163,15 @@ def start_next_website_index() -> Optional[str]:
     conn.close()
 
     return url
+
+def get_last_index_time(url:str) -> Optional[float]:
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT timestamp FROM latest_website_index_time WHERE url = %s", (url,))
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result[0] if result else None
