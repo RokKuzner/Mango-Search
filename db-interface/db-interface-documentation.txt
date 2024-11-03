@@ -1,0 +1,20 @@
+Tables in the database:
+    - keywords
+    - webpages_by_keyword
+    - to_index
+    - latest_website_index_time
+
+keywords:
+    - "keyword": text, primary key
+
+webpages_by_keyword:
+    - "keyword": text, primary key
+    - "url": text
+
+to_index:
+    - "timestamp": decimal, primary key
+    - "url": text, unique, not null
+
+latest_website_index_time:
+    - "url": text, unique, primary key
+    - "timestamp": decimal, not null
