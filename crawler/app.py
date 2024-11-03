@@ -28,8 +28,6 @@ while True:
         WORKERS.append(worker)
 
     #Delete finished workers
-    for worker in WORKERS:
-        if worker.is_active == False:
-            WORKERS.remove(worker)
+    WORKERS = [worker for worker in WORKERS if not worker.is_active]
 
     time.sleep(1)
