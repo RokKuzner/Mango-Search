@@ -98,7 +98,7 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
     cur = conn.cursor()
 
     #Remove website from currently_indexing table
-    cur.execute("DLETE FROM currently_indexing WHERE url = %s", (url,))
+    cur.execute("DELETE FROM currently_indexing WHERE url = %s", (url,))
 
     if is_website_indexed(url):
         cur.execute("UPDATE latest_website_index_time SET timestamp = %s WHERE url = %s", (get_timestamp(), url))
