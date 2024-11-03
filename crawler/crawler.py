@@ -71,7 +71,6 @@ class MangoCrawler():
     
     def crawl_webpage(self, webpage_url:str) -> dict:
         self.driver.get(webpage_url)
-        self.request_counter += 1  # Increment counter
 
         # Get the page source and parse it with BeautifulSoup
         page_source = self.driver.page_source
