@@ -36,6 +36,14 @@ def create_tables_if_not_exist() -> None:
         )
     """)
     cur.execute("""
+        CREATE TABLE IF NOT EXISTS currently_indexing (
+            indexing_start_timestamp DECIMAL,
+            url TEXT UNIQUE,
+            requested_to_index_timestamp DECIMAL,
+            PRIMARY KEY (indexing_start_timestamp, url)
+        )
+    """)
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS latest_website_index_time (
                 url TEXT UNIQUE PRIMARY KEY,
                 timestamp DECIMAL NOT NULL
