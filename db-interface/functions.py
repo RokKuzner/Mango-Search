@@ -175,3 +175,15 @@ def get_last_index_time(url:str) -> Optional[float]:
     conn.close()
 
     return result[0] if result else None
+
+def get_website_keywords(url:str) -> list[str]:
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT keyword FROM webpages_by_keyword WHERE url = %s", (url,))
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return [row[0] for row in result]
