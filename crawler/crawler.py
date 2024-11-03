@@ -12,9 +12,6 @@ from keybert import KeyBERT
 
 import re
 import requests
-import time
-
-websites_to_crawl = ["https://regex101.com/", "https://chatgpt.com/", "https://www.selenium.dev/", "https://www.google.com", "https://casoris.si/", "https://www.easistent.com/stran/", "https://github.com/"] # WARNING: ONLY FOR DEVELOPMENT WITHOUT A DATABASE
 
 class MangoCrawler():
     def __init__(self) -> None:
