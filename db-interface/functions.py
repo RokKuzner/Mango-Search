@@ -130,7 +130,7 @@ def request_website_index(url:str) -> None:
     cur.close()
     conn.close()
 
-def start_next_website_index() -> Optional[str]:
+def start_next_website_index_process() -> Optional[str]:
     """
     Starts the indexing process for the next website in the queue.
 

@@ -17,10 +17,10 @@ def request_website_index_endpoint():
 
     return make_response(jsonify({"status": "success"}), 200)
 
-@app.route("/start_next_website_index", methods=["GET"])
+@app.route("/start_next_website_index_process", methods=["GET"])
 def start_next_website_index_endpoint():
     try:
-        url = db_functions.start_next_website_index()
+        url = db_functions.start_next_website_index_process()
     except Exception as e:
         return make_response(jsonify({"status": "error"}), 500)
 

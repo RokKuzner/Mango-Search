@@ -12,9 +12,6 @@ from keybert import KeyBERT
 
 import re
 import requests
-import time
-
-websites_to_crawl = ["https://regex101.com/", "https://chatgpt.com/", "https://www.selenium.dev/", "https://www.google.com", "https://casoris.si/", "https://www.easistent.com/stran/", "https://github.com/"] # WARNING: ONLY FOR DEVELOPMENT WITHOUT A DATABASE
 
 class MangoCrawler():
     def __init__(self) -> None:
@@ -23,6 +20,9 @@ class MangoCrawler():
         self.sitemap_in_robots_regex_pattern = re.compile(r"(?:sitemap)(?::)(?: )(?P<sitemap_url>(?:https?:\/\/)(?:www\.)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{1,251}[a-zA-Z0-9])?)(?:\.[a-zA-Z0-9\-]{2,63})(?:(?:\:)(\d{4}))?(?:\/.*))", flags=re.M|re.I)
         self.sitemap_locations = ["/sitemap.xml",  "/sitemap-index.xml", "/sitemap/sitemap.xml", "/sitemapindex.xml", "/sitemap/index.xml", "/sitemap1.xml"]
         self.db_interface_url = 'http://db-interface:5000'
+
+        #Initialize the state of the crawler
+        self.is_active = False
 
         # Set up the options for chrome webdriver
         self.user_agent = UserAgent()
@@ -34,10 +34,11 @@ class MangoCrawler():
 
         # Create the driver
         self.driver = webdriver.Chrome(options=chrome_options)
-
-        # Initialize request counter
-        self.request_counter = 0
-        self.requests_per_user_agent = 5  # Rotate user agent every 5 requests
+    
+    def add_indexed_website_to_db(self, url:str, keywords:list[str]) -> None:
+        response = requests.post(f'{self.db_interface_url}/add_indexed_website', json={"url":url, "keywords":keywords})
+        if response.status_code != 200:
+            requests.post(f'{self.db_interface_url}/request_website_index', json={"url":url})
     
     def filter_out_non_content(self, soup: BeautifulSoup) -> None:
         # Remove <header>, <footer>, <nav>, <aside> (common non-content sections)
@@ -74,13 +75,7 @@ class MangoCrawler():
         return content
     
     def crawl_webpage(self, webpage_url:str) -> dict:
-        # Rotate user-agent if the counter reaches the limit
-        if self.request_counter >= self.requests_per_user_agent:
-            self.driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": self.user_agent.random})
-            self.request_counter = 0  # Reset counter
-
         self.driver.get(webpage_url)
-        self.request_counter += 1  # Increment counter
 
         # Get the page source and parse it with BeautifulSoup
         page_source = self.driver.page_source
@@ -187,6 +182,9 @@ class MangoCrawler():
         return subpages
 
     def crawl_website(self, website_base_url:str):
+        #Set the state to active
+        self.is_active = True
+
         # Extract page domain
         url_match = re.match(self.url_regex_pattern, website_base_url)
         website_domain_name = url_match.group("domain_name")
@@ -209,4 +207,8 @@ class MangoCrawler():
 
         keywords = [keyword for keyword in non_duplicate_keywords]
 
-        #TODO: Add keywords to the database
+        #Add indexed website to the database
+        self.add_indexed_website_to_db(website_base_url, keywords)
+
+        self.driver.quit()
+        self.is_active = False

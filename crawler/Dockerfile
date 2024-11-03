@@ -41,4 +41,4 @@ COPY . /app
 WORKDIR /app
 
 # Start the crawler
-CMD ["python", "crawler.py"]
+CMD ["python", "app.py"]
