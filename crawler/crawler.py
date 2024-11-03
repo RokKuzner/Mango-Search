@@ -35,6 +35,11 @@ class MangoCrawler():
         # Create the driver
         self.driver = webdriver.Chrome(options=chrome_options)
     
+    def add_indexed_website_to_db(self, url:str, keywords:list[str]) -> None:
+        response = requests.post(f'{self.db_interface_url}/add_indexed_website', json={"url":url, "keywords":keywords})
+        if response.status_code != 200:
+            requests.post(f'{self.db_interface_url}/request_website_index', json={"url":url})
+    
     def filter_out_non_content(self, soup: BeautifulSoup) -> None:
         # Remove <header>, <footer>, <nav>, <aside> (common non-content sections)
         for tag in ['header', 'footer', 'nav', 'aside']:
@@ -202,7 +207,8 @@ class MangoCrawler():
 
         keywords = [keyword for keyword in non_duplicate_keywords]
 
-        #TODO: Add keywords to the database
+        #Add indexed website to the database
+        self.add_indexed_website_to_db(website_base_url, keywords)
 
         self.driver.quit()
         self.is_active = False
