@@ -14,10 +14,45 @@ def get_db_connection():
     )
     return conn
 
+def create_tables_if_not_exist() -> None:
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS keywords (
+                keyword TEXT UNIQUE PRIMARY KEY
+        )   
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS webpages_by_keyword (
+                keyword TEXT PRIMARY KEY,
+                url TEXT
+        )
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS to_index (
+                timestamp DECIMAL PRIMARY KEY,
+                url TEXT UNIQUE NOT NULL
+        )
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS latest_website_index_time (
+                url TEXT UNIQUE PRIMARY KEY,
+                timestamp DECIMAL NOT NULL
+        )
+    """)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
 @app.route('/data', methods=['GET'])
 def get_data():
     data = [{"status": "success", "message": "THIS IS A TEST"}]
     return jsonify(data)
 
 if __name__ == '__main__':
+    #Create db tables if they do not exist
+    create_tables_if_not_exist()
+
     app.run(host='0.0.0.0', port=5000)
