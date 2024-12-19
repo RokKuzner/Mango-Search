@@ -220,3 +220,15 @@ def get_websites_by_keyword(keyword:str) -> list[str]:
     conn.close()
 
     return [row[0] for row in result]
+
+def list_websites_to_index() -> list[str]:
+    conn = get_db_connection()
+    curr = conn.cursor()
+
+    curr.execute("SELECT url FROM to_index")
+    result = curr.fetchall()
+
+    curr.close()
+    conn.close()
+
+    return [row[0] for row in result]
