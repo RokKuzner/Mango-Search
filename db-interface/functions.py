@@ -5,6 +5,10 @@ from typing import Optional
 import time
 
 def get_db_connection():
+    # !! WARNING !!
+    # #YOU MUST SET THESE UP IN THE .env FILE
+    # WICH IS INCLUDED IN THE .dockerignore FOR SAFETY REASONS
+    # !! WARNING !!
     db_connection_params = {
         "host":os.getenv('POSTGRES_HOST'),
         "dbname":os.getenv('POSTGRES_DB'),
