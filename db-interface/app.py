@@ -41,6 +41,10 @@ def add_indexed_website_endpoint():
 
     return make_response(jsonify({"status": "success"}), 200)
 
+@app.route("/list_websites_to_index", methods=["GET"])
+def get_websites_to_index_list_endpoint():
+    return make_response(jsonify({"status":"succes", "data":db_functions.list_websites_to_index()}))
+
 if __name__ == "__main__":
     #Create db tables if they do not exist
     db_functions.create_tables_if_not_exist()
