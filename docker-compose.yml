@@ -1,13 +1,13 @@
 services:
   db:
-    image: postgres:latest
+    image: postgres:17.2
     ports:
       - "5432:5432"
     restart: always
     env_file:
       - .env
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/pgdata
 
   db-interface:
     build: ./db-interface
