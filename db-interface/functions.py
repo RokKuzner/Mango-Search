@@ -2,15 +2,31 @@ from datetime import datetime, timezone
 import psycopg2
 import os
 from typing import Optional
+import time
 
 def get_db_connection():
-    conn = psycopg2.connect(
-        host=os.getenv('DATABASE_HOST'),
-        database=os.getenv('DATABASE_NAME'),
-        user=os.getenv('DATABASE_USER'),
-        password=os.getenv('DATABASE_PASSWORD'),
-        port=os.getenv('DATABASE_PORT')
-    )
+    db_connection_params = {
+        "host":os.getenv('POSTGRES_HOST'),
+        "dbname":os.getenv('POSTGRES_DB'),
+        "user":os.getenv('POSTGRES_USER'),
+        "password":os.getenv('POSTGRES_PASSWORD'),
+        "port":os.getenv('POSTGRES_PORT')
+    }
+    
+    attempts = 0
+    conn = None
+    while attempts < 5:
+        try:
+            conn = psycopg2.connect(**db_connection_params)
+            break
+        except psycopg2.OperationalError:
+            attempts += 1
+        
+        time.sleep(1)
+
+    if conn is None:
+        raise Exception("Failed to connect to the database after 5 attempts.")
+
     return conn
 
 def create_tables_if_not_exist() -> None:
