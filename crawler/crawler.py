@@ -30,7 +30,8 @@ class MangoCrawler():
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument(f"user-agent={self.user_agent.random}")
+        chrome_options.add_argument("--lang=en-US")
+        chrome_options.add_argument(f"--user-agent={self.user_agent.random}")
 
         # Create the driver
         self.driver = webdriver.Chrome(options=chrome_options)
