@@ -27,6 +27,8 @@ while True:
 
         WORKERS.append(worker)
 
+        print(f"Crawler starting job at {url}")
+
     #Delete finished workers
     filtered_workers = []
     for worker in WORKERS:
