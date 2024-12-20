@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 import functions as db_functions
+import signal
 
 app = Flask(__name__)
 
@@ -45,8 +46,18 @@ def add_indexed_website_endpoint():
 def get_websites_to_index_list_endpoint():
     return make_response(jsonify({"status":"succes", "data":db_functions.list_websites_to_index()}))
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 if __name__ == "__main__":
     #Create db tables if they do not exist
     db_functions.create_tables_if_not_exist()
+
+    #Set up interrupt signals
+    signal.signal(signal.SIGTERM, shutdown_server)
+    signal.signal(signal.SIGINT, shutdown_server)
 
     app.run(host='0.0.0.0', port=5000)
