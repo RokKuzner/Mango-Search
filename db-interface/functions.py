@@ -232,3 +232,15 @@ def list_websites_to_index() -> list[str]:
     conn.close()
 
     return [row[0] for row in result]
+
+def is_website_in_index_quee(url:str) -> bool:
+    conn = get_db_connection()
+    curr = conn.cursor()
+
+    curr.execute("SELECT url FROM to_index WHERE url = %s", (url,))
+    result = curr.fetchone()
+
+    curr.close()
+    conn.close()
+
+    return result is not None
