@@ -104,6 +104,8 @@ def keyword_exists(keyword:str) -> bool:
     return result is not None
 
 def is_website_indexed(url:str) -> bool:
+    url = clean_strip_url(url)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -129,6 +131,8 @@ def add_keyword_to_index_if_not_exists(keyword:str) -> None:
     conn.close()
 
 def add_indexed_website(url:str, keywords:list[str]) -> None:
+    url = clean_strip_url(url)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -150,6 +154,8 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
     conn.close()
 
 def request_website_index(url:str) -> None:
+    url = clean_strip_url(url)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -200,6 +206,8 @@ def start_next_website_index_process() -> Optional[str]:
     return url
 
 def get_last_index_time(url:str) -> Optional[float]:
+    url = clean_strip_url(url)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -212,6 +220,8 @@ def get_last_index_time(url:str) -> Optional[float]:
     return result[0] if result else None
 
 def get_website_keywords(url:str) -> list[str]:
+    url = clean_strip_url(url)
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -248,6 +258,8 @@ def list_websites_to_index() -> list[str]:
     return [row[0] for row in result]
 
 def is_website_in_index_quee(url:str) -> bool:
+    url = clean_strip_url(url)
+    
     conn = get_db_connection()
     curr = conn.cursor()
 
