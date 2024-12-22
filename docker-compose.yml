@@ -23,5 +23,10 @@ services:
     depends_on:
       - db-interface
 
+  web-explorer:
+    build: ./web-explorer
+    depends_on:
+      - db-interface
+
 volumes:
   db_data:
