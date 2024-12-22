@@ -3,6 +3,7 @@ import psycopg2
 import os
 from typing import Optional
 import time
+import urllib.parse
 
 def get_db_connection():
     # !! WARNING !!
@@ -77,6 +78,19 @@ def create_tables_if_not_exist() -> None:
 def get_timestamp() -> float:
     return datetime.now(timezone.utc).timestamp()
 
+def clean_strip_url(url:str) -> str:
+    """Cleans and strips a url. Example: "https://www.google.com/search?q=lol" -> "https://www.google.com/"
+    
+    Keyword arguments:
+    url -- the url to clean and strip
+    Return: stripped and cleaned url
+    """
+
+    parsed_url = urllib.parse.urlparse(url)
+    clean_url = urllib.parse.urlunparse((parsed_url.scheme, parsed_url.netloc, "", "", "", "")) + "/"
+
+    return clean_url
+    
 def keyword_exists(keyword:str) -> bool:
     conn = get_db_connection()
     cur = conn.cursor()
