@@ -46,6 +46,20 @@ def add_indexed_website_endpoint():
 def get_websites_to_index_list_endpoint():
     return make_response(jsonify({"status":"succes", "data":db_functions.list_websites_to_index()}))
 
+@app.route("/check_website_in_index_quee", methods=["POST"])
+def check_website_in_index_quee_endpoint():
+    post_data = request.json
+    if "url" not in post_data:
+        return make_response(jsonify({"status":"error", "message":"url not present in json data"}))
+    
+    try:
+        result = db_functions.is_website_in_index_quee(post_data["url"])
+    except Exception as e:
+        return make_response(jsonify({"status": "error"}), 500)
+
+    return make_response(jsonify({"status":"success", "data":result}), 200)
+
+
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
