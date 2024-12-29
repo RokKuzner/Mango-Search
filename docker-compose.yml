@@ -36,6 +36,9 @@ services:
       - db-interface
     env_file:
       - .env
+    volumes: # !!! WARNING !!!: This is only for development purposes
+      - ./webapp/static:/app/static # !!! WARNING !!!: This is only for development purposes
+      - ./webapp/templates:/app/templates # !!! WARNING !!!: This is only for development purposes
 
 volumes:
   db_data:
