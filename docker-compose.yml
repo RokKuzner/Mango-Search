@@ -34,6 +34,8 @@ services:
       - "8000:8000"
     depends_on:
       - db-interface
+    env_file:
+      - .env
 
 volumes:
   db_data:
