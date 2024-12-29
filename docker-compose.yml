@@ -28,5 +28,12 @@ services:
     depends_on:
       - db-interface
 
+  webapp:
+    build: ./webapp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db-interface
+
 volumes:
   db_data:
