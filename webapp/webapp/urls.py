@@ -21,6 +21,9 @@ urlpatterns = [
     #servestatic urls
     path('files/', include('servestatic.urls')),
 
+    #favicon.ico url
+    path('favicon.ico/', include('servestatic.favicon_url')),
+
     #Main app urls
     path('', include('app.urls')),
 ]
