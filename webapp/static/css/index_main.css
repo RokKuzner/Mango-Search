@@ -21,12 +21,14 @@ body {
 
 .mango-name {
     display: flex;
+    gap: 0px;
 
     width: max-content;
     margin-left: auto;
     margin-right: auto;
 
-    font-size: 4rem;
+    font-size: 5rem;
+    font-weight: bold;
 
     margin-bottom: 20px;
 
