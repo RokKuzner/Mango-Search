@@ -37,7 +37,7 @@ body {
 
 .searchbox-wrapper {
     width: 50vw;
-    height: fit-content;
+    height: max-content;
     max-width: 600px;
     min-width: 200px;
 
@@ -68,6 +68,7 @@ body {
 .search-textarea-wrapper {
     height: var(--search-textarea-height);
     width: 100%;
+    height: max-content;
 }
 
 .search-textarea-wrapper textarea {
