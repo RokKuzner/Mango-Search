@@ -16,13 +16,17 @@ body {
 
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -80%);
 }
 
 .mango-name {
     width: max-content;
     margin-left: auto;
     margin-right: auto;
+
+    font-size: 4rem;
+
+    margin-bottom: 20px;
 }
 
 .searchbox-wrapper {
