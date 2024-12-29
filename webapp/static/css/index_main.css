@@ -37,6 +37,11 @@ body {
 
 .searchbox-wrapper {
     width: 50vw;
+    max-width: 600px;
+    min-width: 200px;
+
+    margin-left: auto;
+    margin-right: auto;
 
     display: flex;
     align-items: center;
@@ -44,6 +49,12 @@ body {
 
     border: 1px gray solid;
     border-radius: 100px;
+}
+
+@media screen and (max-width: 1000px) {
+    .searchbox-wrapper {
+        width: 80vw;
+    }
 }
 
 .searchbox-wrapper .search-icon img {
