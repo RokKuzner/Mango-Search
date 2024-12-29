@@ -1,3 +1,9 @@
+:root {
+    --search-textarea-height: 2rem;
+    --search-icon-around-margin: 10px;
+
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -17,4 +23,42 @@ body {
     width: max-content;
     margin-left: auto;
     margin-right: auto;
+}
+
+.searchbox-wrapper {
+    width: 50vw;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 2px gray solid;
+    border-radius: 100px;
+}
+
+.searchbox-wrapper .search-icon img {
+    width: 20px;
+    margin: var(--search-icon-around-margin) 0 var(--search-icon-around-margin) var(--search-icon-around-margin);
+}
+
+.search-textarea-wrapper {
+    height: var(--search-textarea-height);
+    width: 100%;
+}
+
+.search-textarea-wrapper textarea {
+    height: var(--search-textarea-height);
+    width: 100%;
+
+    border: none;
+    background-color: transparent;
+
+    resize: none;
+
+    overflow: hidden;
+}
+
+.search-textarea-wrapper textarea:focus {
+    outline: none !important;
+    border: none;
 }
