@@ -40,6 +40,7 @@
 }
 
 .search-textarea-wrapper textarea {
+    min-height: var(--search-textarea-height);
     height: var(--search-textarea-height);
     width: 100%;
 
