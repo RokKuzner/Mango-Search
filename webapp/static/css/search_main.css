@@ -12,6 +12,7 @@ body {
     align-items: center;
     justify-content: left;
     gap: 30px;
+    flex-wrap: nowrap;
 }
 
 .navbar .title-navbar {
@@ -24,6 +25,13 @@ body {
     font-weight: bold;
 
     pointer-events: none;
+}
+
+#search-form {
+    width: 800px;
+    max-width: none !important;
+    min-width: 0px !important;
+    margin: 0 !important;
 }
 
 .nav-serparator {
