@@ -1,13 +1,16 @@
 {% block head %}
     <link rel="stylesheet" href="/files/static/css?file=searchbox">
     <script src="/files/static/js?file=expand_search_text_area" defer></script>
+    <script src="/files/static/js?file=search_form" defer></script>
 {% endblock %}
 
-<div class="searchbox-wrapper">
-    <div class="search-icon">
-        <img src="/files/static/icons?file=search.png" alt="">
+<form id="search-form">
+    <div class="searchbox-wrapper">
+        <div class="search-icon">
+            <img src="/files/static/icons?file=search.png" alt="">
+        </div>
+        <div class="search-textarea-wrapper">
+            <textarea></textarea>
+        </div>
     </div>
-    <div class="search-textarea-wrapper">
-        <textarea></textarea>
-    </div>
-</div>
+</form>
