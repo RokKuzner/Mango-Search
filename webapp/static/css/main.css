@@ -1,4 +1,32 @@
+:root {
+    --main-color-1: #D15728;
+    --main-color-2: #9B973E;
+    --main-color-3: #D3BE26;
+    --main-color-4: #DC9E15;
+    --main-color-5: #949633;
+}
+
 body {
     margin: 0;
     padding: 0;
+}
+
+.main-color-1 {
+    color: var(--main-color-1);
+}
+
+.main-color-2 {
+    color: var(--main-color-2);
+}
+
+.main-color-3 {
+    color: var(--main-color-3);
+}
+
+.main-color-4 {
+    color: var(--main-color-4);
+}
+
+.main-color-5 {
+    color: var(--main-color-5);
 }
