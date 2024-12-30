@@ -3,9 +3,6 @@
 {% block title %}{{ query }}{% endblock %}
 
 {% block head %}
-    <script>
-        let query = "{{ query }}"
-    </script>
     <link rel="stylesheet" href="/files/static/css?file=search_main">
 {% endblock %}
 
@@ -19,6 +16,9 @@
             <div class="letter" style="color: #949633;">o</div>
         </div>
         {% include "searchbox.html" %}
+        <script>
+            document.querySelector("#search-form > div.search-textarea-wrapper > textarea").value = "{{ query }}"
+        </script>
     </div>
     <hr class="nav-serparator">
     <article>
