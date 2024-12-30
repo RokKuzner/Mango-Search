@@ -1,5 +1,5 @@
 const search_form = document.querySelector("#search-form")
-const search_texarea = document.querySelector("#search-form .searchbox-wrapper .search-textarea-wrapper textarea")
+const search_texarea = document.querySelector("#search-form .search-textarea-wrapper textarea")
 
 function handle_search() {
     let query = encodeURIComponent(search_texarea.value)
@@ -13,7 +13,7 @@ search_form.addEventListener("submit", (e)=> {
     handle_search()
 })
 
-document.querySelector("#search-form .searchbox-wrapper .search-icon img").addEventListener("click", ()=> {
+document.querySelector("#search-form .search-icon img").addEventListener("click", ()=> {
     handle_search()
 })
 
