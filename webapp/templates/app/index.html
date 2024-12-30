@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Mango Search{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/files/static/css?file=index_main">
+{% endblock %}
+
+{% block content %}
+    <div class="index-center-wrapper">
+        <div class="mango-name">
+            <div class="letter" style="color: #D15728;">M</div>
+            <div class="letter" style="color: #9B973E;">a</div>
+            <div class="letter" style="color: #D3BE26;">n</div>
+            <div class="letter" style="color: #DC9E15;">g</div>
+            <div class="letter" style="color: #949633;">o</div>
+        </div>
+        {% include "searchbox.html" %}
+    </div>
+{% endblock %}
