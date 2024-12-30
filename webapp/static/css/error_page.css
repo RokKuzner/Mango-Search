@@ -1,0 +1,22 @@
+body {
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+article {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 2rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 720px) {
+    article {
+        font-size: 1.4rem;
+    }
+}
