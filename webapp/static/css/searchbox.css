@@ -34,6 +34,10 @@
     margin: var(--search-icon-around-margin) 0 var(--search-icon-around-margin) var(--search-icon-around-margin);
 }
 
+.searchbox-wrapper .search-icon img:hover {
+    cursor: pointer;
+}
+
 .search-textarea-wrapper {
     display: flex;
     align-items: center;
