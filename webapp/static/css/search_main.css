@@ -25,3 +25,7 @@ body {
 
     pointer-events: none;
 }
+
+.nav-serparator {
+    margin-top: 0px !important;
+}
