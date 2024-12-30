@@ -25,7 +25,8 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 
-    box-shadow: 0px 2px 8px 0px rgba(60, 64, 67, 0.25);
+    box-shadow: 0px 2px 8px 0px rgba(60, 64, 67, 0.4);
+    transition: box-shadow 0.3s ease;
 }
 
 .searchbox-wrapper .search-icon img {
@@ -56,4 +57,8 @@
 .search-textarea-wrapper textarea:focus {
     outline: none !important;
     border: none;
+}
+
+.searchbox-wrapper:focus-within {
+    box-shadow: 0px 2px 8px 0px rgba(60, 64, 67, 0.6);
 }
