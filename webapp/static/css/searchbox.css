@@ -34,7 +34,8 @@
 }
 
 .search-textarea-wrapper {
-    height: var(--search-textarea-height);
+    display: flex;
+    align-items: center;
     width: 100%;
     height: max-content;
 }
