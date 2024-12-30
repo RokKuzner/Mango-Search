@@ -4,7 +4,6 @@
 
 {% block head %}
     <link rel="stylesheet" href="/files/static/css?file=index_main">
-    <script src="/files/static/js?file=expand_search_text_area" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -16,13 +15,6 @@
             <div class="letter" style="color: #4285F4;">g</div>
             <div class="letter" style="color: #34A853;">o</div>
         </div>
-        <div class="searchbox-wrapper">
-            <div class="search-icon">
-                <img src="/files/static/icons?file=search.png" alt="">
-            </div>
-            <div class="search-textarea-wrapper">
-                <textarea></textarea>
-            </div>
-        </div>
+        {% include "searchbox.html" %}
     </div>
 {% endblock %}

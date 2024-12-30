@@ -1,9 +1,3 @@
-:root {
-    --search-textarea-height: 2rem;
-    --search-icon-around-margin: 10px;
-
-}
-
 body {
     width: 100vw;
     height: 100vh;
@@ -37,59 +31,10 @@ body {
 
 .searchbox-wrapper {
     width: 50vw;
-    height: max-content;
-    max-width: 600px;
-    min-width: 200px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    padding-right: 15px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    border: 1px rgb(201, 201, 201) solid;
-    
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-
-    box-shadow: 0px 2px 8px 0px rgba(60, 64, 67, 0.25);
 }
 
 @media screen and (max-width: 1000px) {
     .searchbox-wrapper {
         width: 80vw;
     }
-}
-
-.searchbox-wrapper .search-icon img {
-    width: 20px;
-    margin: var(--search-icon-around-margin) 0 var(--search-icon-around-margin) var(--search-icon-around-margin);
-}
-
-.search-textarea-wrapper {
-    height: var(--search-textarea-height);
-    width: 100%;
-    height: max-content;
-}
-
-.search-textarea-wrapper textarea {
-    height: var(--search-textarea-height);
-    width: 100%;
-
-    border: none;
-    background-color: transparent;
-
-    resize: none;
-
-    overflow: hidden;
-}
-
-.search-textarea-wrapper textarea:focus {
-    outline: none !important;
-    border: none;
 }
