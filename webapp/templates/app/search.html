@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ query }}{% endblock %}
+
+{% block head %}
+    <script>
+        let query = "{{ query }}"
+    </script>
+    <link rel="stylesheet" href="/files/static/css?file=search_main">
+{% endblock %}
+
+{% block content %}
+    <div class="navbar">
+        <div class="searchbox-nav-wrapper">
+            {% include "searchbox.html" %}
+        </div>
+    </div>
+    <article>
+        {% for result in results %}
+            <div class="result-wrapper">
+                <a href="{{ result.url }}" class="result-title" target="_blank">{{ result.title }}</a>
+                <div class="result-keywords">{{ result.keywords }}</div>
+            </div>
+        {% endfor %}
+    </article>
+{% endblock %}
