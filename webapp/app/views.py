@@ -8,7 +8,7 @@ def home(request):
 def search(request):
     query = request.GET.get("q", None)
 
-    if query == None:
+    if not query:
         return redirect("/")
 
     return JsonResponse({"status":"success", "provided query":query})
