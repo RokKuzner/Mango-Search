@@ -29,12 +29,12 @@ body {
     pointer-events: none;
 }
 
-.searchbox-wrapper {
+#search-form {
     width: 50vw;
 }
 
 @media screen and (max-width: 1000px) {
-    .searchbox-wrapper {
+    #search-form {
         width: 80vw;
     }
 }
