@@ -6,7 +6,7 @@ body {
 .navbar {
     display: flex;
 
-    margin: 10px 50px 10px 50px !important;
+    margin: 10px 50px 10px 50px;
 
     align-items: center;
     justify-content: left;
@@ -35,4 +35,20 @@ body {
 
 .nav-serparator {
     margin-top: 0px !important;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar {
+        display: block;
+        margin-top: 0px !important;
+    }
+
+    #search-form {
+        width: 100%;
+    }
+
+    .navbar .title-navbar {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
