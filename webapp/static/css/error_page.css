@@ -9,14 +9,24 @@ article {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
+    width: 90vw;
 
     font-size: 2rem;
     text-align: center;
 }
 
+article img.error-image-cut-mango {
+    max-width: 300px;
+    width: 100%;
+}
+
 @media screen and (max-width: 720px) {
     article {
         font-size: 1.4rem;
+    }
+
+    article img.error-image-cut-mango {
+        max-width: 200px;
     }
 }
