@@ -7,7 +7,7 @@ import signal
 
 class WorkerHandler():
     def __init__(self):
-        self.DB_INTERFACE_URL = 'http://db-interface:5000'
+        self.DB_INTERFACE_URL = 'http://api:5000'
         self.MAX_WORKERS = 5
         self.WORKERS = []
 

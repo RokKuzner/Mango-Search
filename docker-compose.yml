@@ -9,8 +9,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/pgdata
 
-  db-interface:
-    build: ./db-interface
+  api:
+    build: ./api
     ports:
       - "5000:5000"
     depends_on:
@@ -21,19 +21,19 @@ services:
   crawler:
     build: ./crawler
     depends_on:
-      - db-interface
+      - api
 
   web-explorer:
     build: ./web-explorer
     depends_on:
-      - db-interface
+      - api
 
   webapp:
     build: ./webapp
     ports:
       - "8000:8000"
     depends_on:
-      - db-interface
+      - api
       - db
     env_file:
       - .env
