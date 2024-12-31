@@ -15,16 +15,12 @@ body {
 }
 
 .navbar .title-navbar {
-    display: flex;
-    gap: 0px;
-
-    width: max-content;
-
     font-size: 2rem;
-    font-weight: bold;
     text-decoration: none;
 
-    pointer-events: all;
+    width: 100%;
+
+    pointer-events: all !important;
 }
 
 #search-form {
@@ -69,7 +65,7 @@ a.result-title:hover {
         width: 100%;
     }
 
-    .navbar .title-navbar {
+    .navbar .title-navbar .mango-letters-title-wrapper {
         margin-left: auto;
         margin-right: auto;
     }
