@@ -29,12 +29,12 @@
     transition: box-shadow 0.3s ease;
 }
 
-#search-form .search-icon img {
-    width: 20px;
+#search-form .search-icon svg {
+    color: rgba(60, 64, 67, 0.7);
     margin: var(--search-icon-around-margin) 0 var(--search-icon-around-margin) var(--search-icon-around-margin);
 }
 
-#search-form .search-icon img:hover {
+#search-form .search-icon svg:hover {
     cursor: pointer;
 }
 

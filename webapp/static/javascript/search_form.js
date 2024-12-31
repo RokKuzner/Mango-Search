@@ -13,7 +13,7 @@ search_form.addEventListener("submit", (e)=> {
     handle_search()
 })
 
-document.querySelector("#search-form .search-icon img").addEventListener("click", ()=> {
+document.querySelector("#search-form .search-icon svg").addEventListener("click", ()=> {
     handle_search()
 })
 
