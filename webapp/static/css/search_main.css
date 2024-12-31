@@ -15,12 +15,15 @@ body {
 }
 
 .navbar .title-navbar {
-    font-size: 2rem;
     text-decoration: none;
 
     width: max-content;
 
     pointer-events: all !important;
+}
+
+img.mango-main-title-image {
+    width: 150px;
 }
 
 #search-form {
@@ -65,8 +68,9 @@ a.result-title:hover {
         width: 100%;
     }
 
-    .navbar .title-navbar .mango-letters-title-wrapper {
+    img.mango-main-title-image {
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 5px;
     }
 }

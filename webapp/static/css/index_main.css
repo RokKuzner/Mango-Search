@@ -13,12 +13,10 @@ body {
     transform: translate(-50%, -80%);
 }
 
-.mango-letters-title-wrapper {
+img.mango-main-title-image {
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
-
-    font-size: 5rem;
-
     margin-bottom: 20px;
 }
 
