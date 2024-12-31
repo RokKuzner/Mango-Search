@@ -20,6 +20,12 @@ img.mango-main-title-image {
     margin-bottom: 20px;
 }
 
+@media screen and (max-width: 350px) {
+    img.mango-main-title-image {
+        width: 80vw;
+    }
+}
+
 #search-form {
     width: 50vw;
 }
