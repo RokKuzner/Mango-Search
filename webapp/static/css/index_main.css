@@ -13,20 +13,13 @@ body {
     transform: translate(-50%, -80%);
 }
 
-.mango-name {
-    display: flex;
-    gap: 0px;
-
-    width: max-content;
+.mango-letters-title-wrapper {
     margin-left: auto;
     margin-right: auto;
 
     font-size: 5rem;
-    font-weight: bold;
 
     margin-bottom: 20px;
-
-    pointer-events: none;
 }
 
 #search-form {
