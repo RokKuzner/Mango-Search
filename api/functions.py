@@ -169,8 +169,14 @@ def add_keyword_to_index_if_not_exists(keyword:str) -> None:
     cur = conn.cursor()
 
     cur.execute("INSERT INTO keywords (keyword) VALUES (%s)", (keyword,))
-
     conn.commit()
+
+    keyword_letter_count = () #TODO: Implement the function to count letters. !!NOTE: the returned object must be a tuple and not list
+
+    cur.execute("INSERT INTO keyword_features (keyword, length, a_count, b_count, c_count, d_count, e_count, f_count, g_count, h_count, i_count, j_count, k_count, l_count, m_count, n_count, o_count, p_count, q_count, r_count, s_count, t_count, u_count, v_count, w_count, x_count, y_count, z_count, other_count) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (keyword, len(keyword), *keyword_letter_count))
+    conn.commit()
+
     cur.close()
     conn.close()
 
