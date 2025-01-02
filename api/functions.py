@@ -134,7 +134,20 @@ def clean_strip_url(url:str) -> str:
     clean_url = urllib.parse.urlunparse((parsed_url.scheme, parsed_url.netloc, "", "", "", "")) + "/"
 
     return clean_url
-    
+
+def get_keyword_letter_count(keyword:str) -> tuple:
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    letter_count = {"a":0, "b":0, "c":0, "d":0, "e":0, "f":0, "g":0, "h":0, "i":0, "j":0, "k":0, "l":0, "m":0, "n":0, "o":0, "p":0, "q":0, "r":0, "s":0, "t":0, "u":0, "v":0, "w":0, "x":0, "y":0, "z":0, "other":0}
+
+    for letter in keyword:
+        if letter in letters:
+            letter_count[letter] += 1
+        else:
+            letter_count["other"] += 1
+
+    return tuple(letter_count.values())
+
+# Database related funtions   
 def keyword_exists(keyword:str) -> bool:
     conn = get_db_connection()
     cur = conn.cursor()
@@ -171,7 +184,7 @@ def add_keyword_to_index_if_not_exists(keyword:str) -> None:
     cur.execute("INSERT INTO keywords (keyword) VALUES (%s)", (keyword,))
     conn.commit()
 
-    keyword_letter_count = () #TODO: Implement the function to count letters. !!NOTE: the returned object must be a tuple and not list
+    keyword_letter_count = get_keyword_letter_count(keyword)
 
     cur.execute("INSERT INTO keyword_features (keyword, length, a_count, b_count, c_count, d_count, e_count, f_count, g_count, h_count, i_count, j_count, k_count, l_count, m_count, n_count, o_count, p_count, q_count, r_count, s_count, t_count, u_count, v_count, w_count, x_count, y_count, z_count, other_count) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (keyword, len(keyword), *keyword_letter_count))
