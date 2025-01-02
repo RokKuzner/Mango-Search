@@ -44,6 +44,41 @@ def create_tables_if_not_exist() -> None:
         )   
     """)
     cur.execute("""
+        CREATE TABLE IF NOT EXISTS keyword_features (
+                keyword TEXT UNIQUE,
+                length INT DEFAULT 0,
+                a_count INT DEFAULT 0,
+                b_count INT DEFAULT 0,
+                c_count INT DEFAULT 0,
+                d_count INT DEFAULT 0,
+                e_count INT DEFAULT 0,
+                f_count INT DEFAULT 0,
+                g_count INT DEFAULT 0,
+                h_count INT DEFAULT 0,
+                i_count INT DEFAULT 0,
+                j_count INT DEFAULT 0,
+                k_count INT DEFAULT 0,
+                l_count INT DEFAULT 0,
+                m_count INT DEFAULT 0,
+                n_count INT DEFAULT 0,
+                o_count INT DEFAULT 0,
+                p_count INT DEFAULT 0,
+                q_count INT DEFAULT 0,
+                r_count INT DEFAULT 0,
+                s_count INT DEFAULT 0,
+                t_count INT DEFAULT 0,
+                u_count INT DEFAULT 0,
+                v_count INT DEFAULT 0,
+                w_count INT DEFAULT 0,
+                x_count INT DEFAULT 0,
+                y_count INT DEFAULT 0,
+                z_count INT DEFAULT 0,
+                other_count INT DEFAULT 0,
+
+                FOREIGN KEY (keyword) REFERENCES keywords (keyword) ON DELETE CASCADE
+        )
+    """)
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS webpages_by_keyword (
                 keyword TEXT,
                 url TEXT,
