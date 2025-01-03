@@ -3,7 +3,6 @@ services:
     image: postgres:17.2
     ports:
       - "5432:5432"
-    restart: always
     env_file:
       - .env
     volumes:
