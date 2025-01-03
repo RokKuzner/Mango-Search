@@ -78,14 +78,14 @@ def create_tables_if_not_exist() -> None:
                 FOREIGN KEY (keyword) REFERENCES keywords (keyword) ON DELETE CASCADE
         )
     """)
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_keyword_length ON keyword_features (length);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_a_count ON keyword_features (a_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_e_count ON keyword_features (e_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_i_count ON keyword_features (i_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_o_count ON keyword_features (o_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_u_count ON keyword_features (u_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_t_count ON keyword_features (t_count);")
-    cur.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_n_count ON keyword_features (n_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_keyword_length ON keyword_features (length);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_a_count ON keyword_features (a_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_e_count ON keyword_features (e_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_i_count ON keyword_features (i_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_o_count ON keyword_features (o_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_u_count ON keyword_features (u_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_t_count ON keyword_features (t_count);")
+    cur.execute("CREATE INDEX IF NOT EXISTS idx_n_count ON keyword_features (n_count);")
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS webpages_by_keyword (
