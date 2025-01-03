@@ -225,6 +225,8 @@ def request_website_index(url:str) -> None:
     #Exit if website is already waiting to be indexed
     cur.execute("SELECT * FROM to_index WHERE url = %s", (url,))
     if cur.fetchone():
+        cur.close()
+        conn.close()
         return
 
     cur.execute("INSERT INTO to_index (timestamp, url) VALUES (%s, %s)", (get_timestamp(), url))
