@@ -252,7 +252,7 @@ def start_next_website_index_process() -> Optional[str]:
     cur.execute("SELECT * FROM to_index ORDER BY timestamp ASC LIMIT 1")
     result = cur.fetchone()
 
-    if result is None:
+    if not result:
         cur.close()
         conn.close()
         return None
