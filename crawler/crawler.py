@@ -38,8 +38,8 @@ class MangoCrawler():
     
     def add_indexed_website_to_db(self, url:str, keywords:list[str]) -> None:
         response = requests.post(f'{self.db_interface_url}/add_indexed_website', json={"url":url, "keywords":keywords})
-        if response.status_code != 200:
-            requests.post(f'{self.db_interface_url}/request_website_index', json={"url":url})
+        #if response.status_code != 200:
+        #    requests.post(f'{self.db_interface_url}/request_website_index', json={"url":url})
     
     def filter_out_non_content(self, soup: BeautifulSoup) -> None:
         # Remove <header>, <footer>, <nav>, <aside> (common non-content sections)
