@@ -31,7 +31,8 @@ def extract_keywords(query:str) -> list[str]:
 
 
 def search(query:str) -> list[str]:
-    # Extract keywords from the query
+    keywords = extract_keywords(query)
+    
     # For each query keyword
         # Get query keyword features
         # Select keywords from the database with similar features
