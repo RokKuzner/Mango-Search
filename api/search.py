@@ -1,3 +1,5 @@
+from keybert import KeyBERT
+
 def levenshtein_distance(str1, str2, m, n):
     # str1 is empty
     if m == 0:
@@ -19,6 +21,14 @@ def levenshtein_distance(str1, str2, m, n):
         # Replace
             levenshtein_distance(str1, str2, m - 1, n - 1))
     )
+
+def extract_keywords(query:str) -> list[str]:
+    kw_model = KeyBERT()
+    content_keywords = kw_model.extract_keywords(query, stop_words=None)
+    content_keywords_list = [keyword for keyword, match in content_keywords]
+
+    return content_keywords_list
+
 
 def search(query:str) -> list[str]:
     # Extract keywords from the query
