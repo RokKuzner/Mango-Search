@@ -1,26 +1,5 @@
 from keybert import KeyBERT
-
-def levenshtein_distance(str1, str2, m, n):
-    # str1 is empty
-    if m == 0:
-        return n
-    
-    # str2 is empty
-    if n == 0:
-        return m
-    
-    if str1[m - 1] == str2[n - 1]:
-        return levenshtein_distance(str1, str2, m - 1, n - 1)
-    
-    return 1 + min(
-        # Insert     
-        levenshtein_distance(str1, str2, m, n - 1),
-        min(
-            # Remove
-            levenshtein_distance(str1, str2, m - 1, n),
-        # Replace
-            levenshtein_distance(str1, str2, m - 1, n - 1))
-    )
+import Levenshtein
 
 def extract_keywords(query:str) -> list[str]:
     kw_model = KeyBERT()
