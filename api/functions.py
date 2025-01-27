@@ -269,7 +269,7 @@ def get_websites_by_similar_keyyowrds(keyword:str, treshold:float=0.4):
     cur.close()
     conn.close()
 
-    return [row[0] for row in result]
+    return [{"url":row[0], "keyword":row[1], "similarity":row[2]} for row in result]
 
 def list_websites_to_index() -> list[str]:
     conn = get_db_connection()
