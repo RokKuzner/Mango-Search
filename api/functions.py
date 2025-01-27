@@ -259,10 +259,9 @@ def get_websites_by_similar_keyyowrds(keyword:str, treshold:float=0.4):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT DISTINCT ON (url) url, keyword, similarity(keyword, %s) AS similarity_score
+        SELECT url, keyword, similarity(keyword, %s) AS similarity_score
         FROM webpages_by_keyword
-        WHERE similarity(keyword, %s) >= %s
-        ORDER BY url, similarity_score DESC;
+        WHERE similarity(keyword, %s) >= %s;
     """, (keyword, keyword, treshold))
     result = cur.fetchall()
 
