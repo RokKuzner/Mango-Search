@@ -254,6 +254,23 @@ def get_websites_by_literal_keyword(keyword:str) -> list[str]:
 
     return [row[0] for row in result]
 
+def get_websites_by_similar_keyyowrds(keyword:str, treshold:float=0.4):
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT DISTINCT ON (url) url, keyword, similarity(keyword, %s) AS similarity_score
+        FROM webpages_by_keyword
+        WHERE similarity(keyword, %s) >= 0.4
+        ORDER BY url, similarity_score DESC;
+    """, ())
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return [row[0] for row in result]
+
 def list_websites_to_index() -> list[str]:
     conn = get_db_connection()
     curr = conn.cursor()
