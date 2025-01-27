@@ -38,6 +38,8 @@ def create_tables_if_not_exist() -> None:
     conn = get_db_connection()
     cur = conn.cursor()
 
+    cur.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+
     cur.execute("""
         CREATE TABLE IF NOT EXISTS keywords (
                 keyword TEXT UNIQUE PRIMARY KEY
