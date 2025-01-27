@@ -39,6 +39,7 @@ def create_tables_if_not_exist() -> None:
     cur = conn.cursor()
 
     cur.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+    cur.execute("SET pg_trgm.similarity_threshold = 0.5;")
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS keywords (
