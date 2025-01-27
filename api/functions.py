@@ -242,7 +242,7 @@ def get_website_keywords(url:str) -> list[str]:
 
     return [row[0] for row in result]
 
-def get_websites_by_keyword(keyword:str) -> list[str]:
+def get_websites_by_literal_keyword(keyword:str) -> list[str]:
     conn = get_db_connection()
     cur = conn.cursor()
 
