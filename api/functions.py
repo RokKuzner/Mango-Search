@@ -47,7 +47,7 @@ def create_tables_if_not_exist() -> None:
         )   
     """)
 
-    cur.execute("CREATE INDEX keywords_trgm_idx ON keywords USING gin (keyword gin_trgm_ops);")
+    cur.execute("CREATE INDEX IF NOT EXISTS keywords_trgm_idx ON keywords USING gin (keyword gin_trgm_ops);")
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS webpages_by_keyword (
