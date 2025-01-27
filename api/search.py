@@ -1,5 +1,6 @@
 from keybert import KeyBERT
 import Levenshtein
+from functions import get_websites_by_similar_keyyowrds
 
 def extract_keywords(query:str) -> list[str]:
     kw_model = KeyBERT()
@@ -11,14 +12,13 @@ def extract_keywords(query:str) -> list[str]:
 
 def search(query:str) -> list[str]:
     keywords = extract_keywords(query)
+
+    for query_keyword in keywords:
+        websites = get_websites_by_similar_keyyowrds(query_keyword, treshold=0.4)
     
     # For each query keyword
-        # Get query keyword features
-        # Select keywords from the database with similar features
+        # Select similar keywords from the database
         # For each keyword from the db
-            # Calculate the Levenshtein distance
-            # If Levenshtein distance is small enough -> add 1 point to every website with given keyword
+            # Add float(similarity_score) points to the website
     # Sort the websites by points
     # Return sorted websites
-
-    pass
