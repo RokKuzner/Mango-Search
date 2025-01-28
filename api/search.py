@@ -12,13 +12,17 @@ def extract_keywords(query:str) -> list[str]:
 
 def search(query:str) -> list[str]:
     keywords = extract_keywords(query)
+    graded_websites = dict()
 
     for query_keyword in keywords:
         websites = get_websites_by_similar_keyyowrds(query_keyword, treshold=0.4)
-    
-    # For each query keyword
-        # Select similar keywords from the database
-        # For each keyword from the db
-            # Add float(similarity_score) points to the website
-    # Sort the websites by points
-    # Return sorted websites
+
+        for website in websites:
+            if website["url"] in graded_websites:
+                graded_websites[website["url"]] += website["similarity"]
+            else:
+                graded_websites[website["url"]] = website["similarity"]
+
+    sorted_websites = sorted(graded_websites.items(), key=lambda item: item[1], reverse=True)
+
+    return [url for url, score in sorted_websites]
