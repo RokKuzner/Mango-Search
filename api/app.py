@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 import functions as db_functions
+from search import search
 import signal
 
 app = Flask(__name__)
@@ -59,6 +60,9 @@ def check_website_in_index_quee_endpoint():
 
     return make_response(jsonify({"status":"success", "data":result}), 200)
 
+@app.route("/search", methods=["GET"])
+def search_endpoint():
+    query = request.args.get("q")
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
