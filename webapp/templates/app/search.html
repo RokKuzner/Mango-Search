@@ -20,8 +20,8 @@
     <article>
         {% for result in results %}
             <div class="result-wrapper">
-                <a href="{{ result.url }}" class="result-title" target="_blank">{{ result.title }}</a>
-                <div class="result-keywords">{{ result.keywords }}</div>
+                <a href="{{ result.url }}" class="result-title" target="_blank">{{ result.name }}</a>
+                <div class="result-keywords">{{ result.keywords_str }}</div>
             </div>
         {% endfor %}
     </article>
