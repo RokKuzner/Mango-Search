@@ -24,5 +24,16 @@
                 <div class="result-keywords">{{ result.keywords_str }}</div>
             </div>
         {% endfor %}
+
+        {% if results|length == 0 %}
+            <div class="no-result-wrapper">
+                <p>There seem to be <strong>no results for your search query</strong>.</p>
+                <div>To find what you're looking for, try:</div>
+                <ul>
+                    <li>Checking for <strong>misspelled</strong> words</li>
+                    <li>Searching with consise/<strong>shorter queries</strong></li>
+                </ul>
+            </div>
+        {% endif %}
     </article>
 {% endblock %}

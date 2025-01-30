@@ -68,6 +68,21 @@ a.result-title:hover {
     white-space: normal; /* Allows multi-line wrapping */
 }
 
+.no-result-wrapper {
+    max-width: 80vw;
+    width: max-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+
+    font-size: 1.2rem;
+}
+
+.no-result-wrapper p {
+    font-size: 1.3rem;
+}
+
 
 @media screen and (max-width: 600px) {
     .navbar {
