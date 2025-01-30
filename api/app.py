@@ -65,6 +65,9 @@ def check_website_in_index_quee_endpoint():
 def search_endpoint():
     query = urllib.parse.unquote(request.args.get("q"))
 
+    if not query:
+        return make_response(jsonify({"status":"error", "message":"missing query argument"}))
+
     return make_response(jsonify({"status":"succes", "query":query}))
 
 def shutdown_server():
