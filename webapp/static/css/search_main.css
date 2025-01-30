@@ -58,6 +58,17 @@ a.result-title:hover {
     text-decoration: underline;
 }
 
+.result-keywords {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Limits the text to 2 lines */
+    line-clamp: 2; /* Limits the text to 2 lines */
+    overflow: hidden; /* Hides any overflowing text */
+    text-overflow: ellipsis; /* adds "..." at the end */
+    white-space: normal; /* Allows multi-line wrapping */
+}
+
+
 @media screen and (max-width: 600px) {
     .navbar {
         display: block;
