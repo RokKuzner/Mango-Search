@@ -254,7 +254,7 @@ def get_websites_by_literal_keyword(keyword:str) -> list[str]:
 
     return [row[0] for row in result]
 
-def get_websites_by_similar_keyyowrds(keyword:str, treshold:float=0.4):
+def get_websites_by_similar_keywords(keyword:str, treshold:float=0.4):
     conn = get_db_connection()
     cur = conn.cursor()
 

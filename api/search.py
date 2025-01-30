@@ -1,6 +1,6 @@
 from keybert import KeyBERT
 import Levenshtein
-from functions import get_websites_by_similar_keyyowrds
+from functions import get_websites_by_similar_keywords
 
 def extract_keywords(query:str) -> list[str]:
     kw_model = KeyBERT()
@@ -17,7 +17,7 @@ def search(query:str) -> list[str]:
     graded_websites = dict()
 
     for query_keyword in keywords:
-        websites = get_websites_by_similar_keyyowrds(query_keyword, treshold=0.4)
+        websites = get_websites_by_similar_keywords(query_keyword, treshold=0.4)
 
         for website in websites:
             # Add the similarity between the query keyword and website keyword to website score
