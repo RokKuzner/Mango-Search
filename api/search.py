@@ -1,6 +1,7 @@
 from keybert import KeyBERT
 import Levenshtein
-from functions import get_websites_by_similar_keywords
+from functions import get_websites_by_similar_keywords, get_website_keywords
+import urllib.parse
 
 def extract_keywords(query:str) -> list[str]:
     kw_model = KeyBERT()
@@ -29,4 +30,17 @@ def search(query:str) -> list[str]:
     # Sort the websites by score
     sorted_websites = sorted(graded_websites.items(), key=lambda item: item[1], reverse=True)
 
-    return [url for url, score in sorted_websites]
+    # Generate objects for each site
+    website_objects = []
+    for url, score in sorted_websites:
+        website_keywords = get_website_keywords(url)
+
+        website_objects.append({
+            "url":url,
+            "name": urllib.parse.urlparse(url).netloc,
+            "keyowrds": website_keywords,
+            "keywords_str": ", ".join(website_keywords),
+            "score": score,
+        })
+
+    return website_objects
