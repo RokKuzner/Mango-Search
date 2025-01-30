@@ -67,8 +67,10 @@ def search_endpoint():
 
     if not query:
         return make_response(jsonify({"status":"error", "message":"missing query argument"}))
+    
+    return_objects = search(query)
 
-    return make_response(jsonify({"status":"succes", "query":query}))
+    return make_response(jsonify({"status":"succes", "result":return_objects}), 200)
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
