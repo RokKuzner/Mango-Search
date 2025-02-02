@@ -13,6 +13,13 @@ def request_website_index_endpoint():
         return make_response(jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400)
     url = data["url"]
 
+    # Check if the website was indexed less than half an hour ago
+    last_index_time = db_functions.get_last_index_time(url)
+    curent_timestamp = db_functions.get_timestamp()
+
+    if (curent_timestamp - last_index_time) < 1800:
+        return make_response(jsonify({"status": "forbidden", "display_msg":"You cannot request website index of a website that was indexed less than 30 minutes ago."}), 403)
+
     try:
         db_functions.request_website_index(url)
     except Exception as e:
