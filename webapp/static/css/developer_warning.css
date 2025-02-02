@@ -1,0 +1,7 @@
+.developer-top-general-warning {
+    width: 100%;
+    background-color: var(--bs-warning);
+    padding: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+}
