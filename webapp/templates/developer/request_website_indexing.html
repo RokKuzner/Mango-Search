@@ -4,7 +4,6 @@
 
 {% block head %}
     <link rel="stylesheet" href="/files/static/css?file=developer_request_website_indexing">
-    <script src="/files/static/js?file=developer_request_website_indexing_form" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -24,14 +23,16 @@
         <p>To request website indexing, simply put the <strong>full url to the base of your website</strong> in the input field below.
             The full url to the base of your website is e.g. <q>https://www.mango.com/</q> and not any other form like <q>https://www.mango.com</q> or <q>mango.com</q>.</p>
         
-        <form id="request-website-indexing-form">
+        <form id="request-website-indexing-form" action="" method="post">
+            {% csrf_token %}
+
             {% if request_error %}
             <div class="request-error">
                 {{ request_error }}
             </div>
             {% endif %}
 
-            <input type="url">
+            <input type="url" name="url_to_index">
             <button type="submit" class="btn btn-primary">Request website indexing</button>
         </form>
     </article>
