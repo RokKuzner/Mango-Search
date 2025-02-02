@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Mango - Developer Console - Request website indexing{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/files/static/css?file=developer_request_website_indexing">
+{% endblock %}
+
+{% block content %}
+    {% include "developer/dev_warning.html" %}
+    <article>
+        <p>Here you can request for your website to be indexed.</p>
+
+        <h3>What is website indexing</h3>
+        <p>To display your website among search results, Mango must first collect some data about it.
+            We mainly collect data about the displayed content.</p>
+
+        <h3>When to request indexing</h3>
+        <p>You can request website indexing each 30 minutes, but this interval usually isn't necesary.
+            We recommend that you request website indexed when your website has undergone noticable changes in content or structure.</p>
+
+        <h3>How to request indexing</h3>
+        <p>To request website indexing, simply put the <strong>full url to the base of your website</strong> in the input field below.
+            The full url to the base of your website is e.g. <q>https://www.mango.com/</q> and not any other form like <q>https://www.mango.com</q> or <q>mango.com</q>.</p>
+    </article>
+{% endblock %}
