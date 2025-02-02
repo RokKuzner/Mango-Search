@@ -3,6 +3,9 @@ import functions as db_functions
 from search import search
 import signal
 import urllib.parse
+import re
+
+valid_base_url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?:\/)$")
 
 app = Flask(__name__)
 
@@ -12,6 +15,10 @@ def request_website_index_endpoint():
     if "url" not in data:
         return make_response(jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400)
     url = data["url"]
+
+    # Check if the given url is valid and of a base website
+    if not valid_base_url_regex_pattern.match(url):
+        return make_response(jsonify({"status": "forbidden", "display_msg":"The given URL is not valid."}), 403)
 
     # Check if the website was indexed less than half an hour ago
     last_index_time = db_functions.get_last_index_time(url)

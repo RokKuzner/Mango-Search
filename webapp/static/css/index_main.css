@@ -35,3 +35,17 @@ img.mango-main-title-image {
         width: 80vw;
     }
 }
+
+.bottom-buttons {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.bottom-buttons a {
+    text-decoration: underline;
+    color: gray;
+}

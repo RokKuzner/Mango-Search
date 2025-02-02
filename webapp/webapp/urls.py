@@ -24,6 +24,9 @@ urlpatterns = [
     #favicon.ico url
     path('favicon.ico/', include('servestatic.favicon_url')),
 
+    #developer console urls
+    path("developer/", include("developer.urls")),
+
     #Main app urls
     path('', include('app.urls')),
 ]
