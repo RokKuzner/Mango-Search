@@ -27,10 +27,17 @@ q::after {
     border-radius: 5px;
 }
 
-.request-error {
-    background-color: var(--bs-danger);
+.request-message {
     color: white;
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+.request-error {
+    background-color: var(--bs-danger);
+}
+
+.request-succes {
+    background-color: var(--bs-success);
 }
