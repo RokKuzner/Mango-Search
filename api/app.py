@@ -20,6 +20,7 @@ def request_website_index_endpoint():
     if (curent_timestamp - last_index_time) < 1800:
         return make_response(jsonify({"status": "forbidden", "display_msg":"You cannot request website index of a website that was indexed less than 30 minutes ago."}), 403)
 
+    # Run the indexing process
     try:
         db_functions.request_website_index(url)
     except Exception as e:
