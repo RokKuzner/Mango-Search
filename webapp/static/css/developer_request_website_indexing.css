@@ -5,3 +5,17 @@ article {
     margin-left: auto;
     margin-right: auto;
 }
+
+q {
+    background-color: rgb(230, 230, 230);
+    padding: 2px;
+    border-radius: 3px;
+}
+
+q::before {
+    content: none;
+}
+
+q::after {
+    content: none;
+}
