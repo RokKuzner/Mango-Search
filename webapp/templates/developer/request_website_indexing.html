@@ -26,10 +26,14 @@
         <form id="request-website-indexing-form" action="" method="post">
             {% csrf_token %}
 
-            {% if request_error %}
-            <div class="request-error">
-                {{ request_error }}
-            </div>
+            {% if request_success is False %}
+                <div class="request-message request-error">
+                    {{ request_message }}
+                </div>
+            {% elif request_success is True %}
+                <div class="request-message request-succes">
+                    {{ request_message }}
+                </div>
             {% endif %}
 
             <input type="url" name="url_to_index">
