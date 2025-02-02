@@ -226,7 +226,7 @@ def get_last_index_time(url:str) -> Optional[float]:
     cur.close()
     conn.close()
 
-    return result[0] if result else None
+    return float(result[0]) if result else None
 
 def get_website_keywords(url:str) -> list[str]:
     url = clean_strip_url(url)
