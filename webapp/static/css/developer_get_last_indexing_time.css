@@ -20,7 +20,7 @@ q::after {
     content: none;
 }
 
-#request-website-indexing-form {
+#get-last-indexing-time-form {
     background-color: rgb(230, 230, 230);
     width: max-content;
     padding: 20px;

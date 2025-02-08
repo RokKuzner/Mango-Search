@@ -15,7 +15,7 @@
         <p>To get last website index time, simply put the <strong>full url to the base of your website</strong> in the input field below.
             The full url to the base of your website is e.g. <q>https://www.mango.com/</q> and not any other form like <q>https://www.mango.com</q> or <q>mango.com</q>.</p>
         
-        <form id="request-website-indexing-form" action="" method="post">
+        <form id="get-last-indexing-time-form" action="" method="post">
             {% csrf_token %}
 
             {% if request_success is False %}
@@ -28,7 +28,7 @@
                 </div>
             {% endif %}
 
-            <input type="url" name="url_to_index">
+            <input type="url" name="url">
             <button type="submit" class="btn btn-primary">Get last website index time</button>
         </form>
     </article>
