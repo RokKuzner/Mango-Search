@@ -4,6 +4,7 @@ from search import search
 import signal
 import urllib.parse
 import re
+from datetime import datetime, timezone
 
 valid_base_url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)?(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?:\/)$")
 
@@ -58,6 +59,27 @@ def add_indexed_website_endpoint():
         return make_response(jsonify({"status": "error"}), 500)
 
     return make_response(jsonify({"status": "success"}), 200)
+
+@app.route("/get_last_website_index_time", methods=["GET"])
+def get_last_website_index_time_endpoint():
+    data = request.json
+    if "url" not in data:
+        return make_response(jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400)
+    url = data["url"]
+
+    # Check if the given url is valid and of a base website
+    if not valid_base_url_regex_pattern.match(url):
+        return make_response(jsonify({"status": "forbidden", "display_msg":"The given URL is not valid."}), 403)
+    
+    index_timestamp = db_functions.get_last_index_time(url)
+
+    if not index_timestamp:
+        return make_response(jsonify({"status": "forbidden", "display_msg":"The given website was not indexed yet."}), 403)
+    
+    index_datetime_obj = datetime.fromtimestamp(float(index_timestamp), timezone.utc)
+    index_string_time = f"{index_datetime_obj.hour}:{index_datetime_obj.minute}:{index_datetime_obj.second}, {index_datetime_obj.day}. {index_datetime_obj.month}. {index_datetime_obj.year} (DD. MM. YYYY) UTC"
+
+    return make_response(jsonify({"status": "success", "index_time":index_string_time}), 200)
 
 @app.route("/list_websites_to_index", methods=["GET"])
 def get_websites_to_index_list_endpoint():
