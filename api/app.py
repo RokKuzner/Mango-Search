@@ -5,7 +5,7 @@ import signal
 import urllib.parse
 import re
 
-valid_base_url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?:\/)$")
+valid_base_url_regex_pattern = re.compile(r"^(?:https?:\/\/)(?:www\.)?(?P<domain_name>[a-zA-Z0-9](?:[a-zA-Z0-9\-\.]{0,251}[a-zA-Z0-9])?)(?P<top_level_domain>\.[a-zA-Z]{2,63})(?:\/)$")
 
 app = Flask(__name__)
 
