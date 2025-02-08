@@ -52,7 +52,7 @@ def get_last_website_index_time(request):
             request_message = res_json["display_msg"]
             request_success = False
         else:
-            request_message = f"Your website was indexed on: {res_json["index_time"]}"
+            request_message = f"Your website was indexed at: {res_json["index_time"]}"
             request_success = True
         
         return render(request, "developer/get_last_website_index_time.html", {"request_success": request_success, "request_message": request_message})
