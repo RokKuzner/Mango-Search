@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Mango - Developer Console - Get last website index time{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/files/static/css?file=developer_get_last_indexing_time">
+{% endblock %}
+
+{% block content %}
+    {% include "developer/dev_warning.html" %}
+    <article>
+        <p>Here you can check the last thime that a website was indexed by the mango crawler..</p>
+
+        <h3>How to get last website index time</h3>
+        <p>To get last website index time, simply put the <strong>full url to the base of your website</strong> in the input field below.
+            The full url to the base of your website is e.g. <q>https://www.mango.com/</q> and not any other form like <q>https://www.mango.com</q> or <q>mango.com</q>.</p>
+        
+        <form id="request-website-indexing-form" action="" method="post">
+            {% csrf_token %}
+
+            {% if request_success is False %}
+                <div class="request-message request-error">
+                    {{ request_message }}
+                </div>
+            {% elif request_success is True %}
+                <div class="request-message request-succes">
+                    {{ request_message }}
+                </div>
+            {% endif %}
+
+            <input type="url" name="url_to_index">
+            <button type="submit" class="btn btn-primary">Get last website index time</button>
+        </form>
+    </article>
+{% endblock %}

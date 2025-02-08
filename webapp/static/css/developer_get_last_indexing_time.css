@@ -1,0 +1,43 @@
+article {
+    margin-top: 10px;
+
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+q {
+    background-color: rgb(230, 230, 230);
+    padding: 2px;
+    border-radius: 3px;
+}
+
+q::before {
+    content: none;
+}
+
+q::after {
+    content: none;
+}
+
+#request-website-indexing-form {
+    background-color: rgb(230, 230, 230);
+    width: max-content;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.request-message {
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.request-error {
+    background-color: var(--bs-danger);
+}
+
+.request-succes {
+    background-color: var(--bs-success);
+}
