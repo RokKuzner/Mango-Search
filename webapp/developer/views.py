@@ -45,7 +45,7 @@ def get_last_website_index_time(request):
             return render(request, "developer/get_last_website_index_time.html", {"request_success": False, "request_message": "URL was not provided"})
         
         # Request website index time via the api
-        res = requests.post(api_get_last_website_index_time, json={"url":str(post_data["url"])})
+        res = requests.get(api_get_last_website_index_time, json={"url":str(post_data["url"])})
         res_json = res.json()
 
         if res.status_code != 200:
