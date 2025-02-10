@@ -35,11 +35,11 @@ class RequestWebsiteIndexingView(View):
     def get(self, request):
         return render(request, "developer/request_website_indexing.html", {"request_success": None})
     
-def get_last_website_index_time(request):
+class GetLastWebsiteIndexTimeView(View):
     request_success = None
     request_message = ""
 
-    if request.method == "POST":
+    def post(self, request):
         post_data =  request.POST.dict()
 
         if "url" not in post_data:
@@ -57,5 +57,5 @@ def get_last_website_index_time(request):
             request_success = True
         
         return render(request, "developer/get_last_website_index_time.html", {"request_success": request_success, "request_message": request_message})
-    elif request.method == "GET":
+    def get(self, request):
         return render(request, "developer/get_last_website_index_time.html", {"request_success": None})
