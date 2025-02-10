@@ -85,6 +85,24 @@ def get_last_website_index_time_endpoint():
 def get_websites_to_index_list_endpoint():
     return make_response(jsonify({"status":"succes", "data":db_functions.list_websites_to_index()}))
 
+@app.route("/list_currently_indexing_websites", methods=["GET"])
+def list_currently_indexing_websites_endpoint():
+    return make_response(jsonify({"status":"succes", "data":db_functions.get_websites_from_currently_indexing()}))
+
+@app.route("/remove_website_from_currently_indexing", methods=["POST"])
+def remove_website_from_currently_indexing_endpoint():
+    data = request.json
+    if "url" not in data:
+        return make_response(jsonify({"status": "error", "message": "Missing 'url' key in request data"}), 400)
+    url = data["url"]
+
+    try:
+        db_functions.remove_website_from_currently_indexing(url)
+    except:
+        return make_response(jsonify({"status": "error"}), 500)
+
+    return make_response(jsonify({"status":"succes"}))
+
 @app.route("/check_website_in_index_quee", methods=["POST"])
 def check_website_in_index_quee_endpoint():
     post_data = request.json

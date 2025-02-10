@@ -144,7 +144,7 @@ def add_indexed_website(url:str, keywords:list[str]) -> None:
     cur = conn.cursor()
 
     #Remove website from currently_indexing table
-    cur.execute("DELETE FROM currently_indexing WHERE url = %s", (url,))
+    remove_website_from_currently_indexing_table(url)
 
     if is_website_indexed(url):
         cur.execute("UPDATE latest_website_index_time SET timestamp = %s WHERE url = %s", (get_timestamp(), url))
@@ -295,3 +295,33 @@ def is_website_in_index_quee(url:str) -> bool:
     conn.close()
 
     return result is not None
+
+def remove_website_from_currently_indexing(url:str) -> None:
+    url = clean_strip_url(url)
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    #Remove website from currently_indexing table
+    cur.execute("DELETE FROM currently_indexing WHERE url = %s", (url,))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def get_websites_from_currently_indexing() -> list[dict]:
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    #Remove website from currently_indexing table
+    cur.execute("SELECT * FROM currently_indexing")
+    results = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return [{
+        "indexing_start_timestamp": i[0],
+        "url": i[1],
+        "requested_to_index_timestamp": i[2]
+    } for i in results]
