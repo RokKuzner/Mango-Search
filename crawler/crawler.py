@@ -13,6 +13,17 @@ from keybert import KeyBERT
 import re
 import requests
 
+class GetPageError(Exception):
+    """Exception raised when an error occurs while making a get request to a website.
+
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
 class MangoCrawler():
     def __init__(self) -> None:
         # Global variables
@@ -76,7 +87,10 @@ class MangoCrawler():
         return content
     
     def crawl_webpage(self, webpage_url:str) -> dict:
-        self.driver.get(webpage_url)
+        try:
+            self.driver.get(webpage_url)
+        except:
+            raise GetPageError(f"There was an error when reqesting {webpage_url}. This indicates that this webpage might not exist.")
 
         # Get the page source and parse it with BeautifulSoup
         page_source = self.driver.page_source
@@ -195,7 +209,21 @@ class MangoCrawler():
         domain_name_keyphrase = " ".join(domain_name_parts)
 
         #Crawl the index page
-        index_webpage_data = self.crawl_webpage(website_base_url)
+        try:
+            index_webpage_data = self.crawl_webpage(website_base_url)
+        except GetPageError: # If there is an error while requesting the page
+            requests.post(f'{self.db_interface_url}/remove_website_from_currently_indexing', json={"url":website_base_url})
+
+            self.driver.quit()
+            self.is_active = False
+            return
+        except: # If a different error occurs
+            requests.post(f'{self.db_interface_url}/remove_website_from_currently_indexing', json={"url":website_base_url})
+            requests.post(f'{self.db_interface_url}/request_website_index', json={"url":website_base_url}) # Request website index again
+
+            self.driver.quit()
+            self.is_active = False
+            return
 
         keywords = [ domain_name_keyphrase, index_webpage_data["title"] ] + index_webpage_data["content_keywords"] + index_webpage_data["meta_keywords"]
         keywords = [keyword.lower() for keyword in keywords] #Lowercase all the keywords
