@@ -325,3 +325,18 @@ def get_websites_from_currently_indexing() -> list[dict]:
         "url": i[1],
         "requested_to_index_timestamp": i[2]
     } for i in results]
+
+def is_currently_indexing(url:str) -> bool:
+    url = clean_strip_url(url)
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    #Remove website from currently_indexing table
+    cur.execute("SELECT * FROM currently_indexing WHERE url = %s", (url,))
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return True if result else False
