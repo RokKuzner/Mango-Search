@@ -11,8 +11,8 @@ def home(request):
     return render(request, "developer/dev_index.html")
 
 class RequestWebsiteIndexingView(View):
-    request_success = None
-    request_message = ""
+    request_success:bool|None = None
+    request_message:str = ""
 
     def post(self, request):
         post_data =  request.POST.dict()
