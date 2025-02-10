@@ -40,7 +40,7 @@ class WorkerHandler():
             for worker in self.WORKERS:
                 if worker.is_active:
                     filtered_workers.append(worker)
-            self.WORKERS = filtered_workers
+            self.WORKERS = filtered_workers.copy()
             filtered_workers.clear()
 
             time.sleep(1)
