@@ -173,6 +173,12 @@ def request_website_index(url:str) -> None:
         conn.close()
         return
 
+    # Exit if website is currently being indexed
+    if is_currently_indexing(url):
+        cur.close()
+        conn.close()
+        return
+
     cur.execute("INSERT INTO to_index (timestamp, url) VALUES (%s, %s)", (get_timestamp(), url))
 
     conn.commit()
